@@ -9,39 +9,49 @@ class App extends Component {
     super(props);
     this.state = {
       loading: true,
-      messages: [
-        {
-          username: 'Bob',
-          content: 'Has anyone seen my marbles?',
-          id: '1'
-        },
-        {
-          username: 'Anonymous',
-          content: 'No, I think you lost them. You lost your marbles Bob. You lost them for good.',
-          id: '2'
-        }
-      ],
-      currentUser: {name: 'Aaron'}
+      messages: [],
+      currentUser: {name: 'Aaron'},
+      webSocket: new WebSocket('ws://0.0.0.0:3002')
     }
-
     this.sendMessage = this.sendMessage.bind(this);
   }
 
   sendMessage = (event) => {
-    event.preventDefault();
-    console.log(event);
-    const id = this.state.messages.length + 1;
-    const username = event.target.elements['username'].value || this.state.currentUser.name;
-    const content = event.target.elements['text'].value
+      event.preventDefault()
+      const newUser = event.target.elements['username'].value
+      const oldUser = this.state.currentUser.name
+      const socket = this.state.webSocket
+      const content = event.target.elements['text'].value
 
-    const newMessage = {id, username, content};
+      if (newUser && newUser !== oldUser){
+        const type = 'postNotification';
+        const content = `${oldUser} has changed their name to ${newUser}`
+        const newNotification = {type, content}
+        socket.send(JSON.stringify(newNotification))
+        this.setState({currentUser: {name: newUser}})
+      }
 
-    const messages = this.state.messages.concat(newMessage)
-    this.setState({messages: messages})
-    event.target.elements['text'].value = ''
+      if (content) {
+        const type = 'postMessage';
+        const id = this.state.messages.length + 1;
+        const username = newUser || oldUser;
+        const newMessage = {type, id, username, content}
+        socket.send(JSON.stringify(newMessage));
+        event.target.elements['text'].value = '';
+      }
   }
 
+
   componentDidMount() {
+    this.state.webSocket.onopen = (event) => {
+      console.log('connected to webSocket');
+    }
+    
+    this.state.webSocket.onmessage = (event) => {
+      const inMsg = JSON.parse(event.data)
+      const messageArray = this.state.messages.concat(inMsg)
+      this.setState({messages: messageArray})
+    }
   }
 
   render() {
@@ -52,6 +62,6 @@ class App extends Component {
         <ChatBar currentUser={this.state.currentUser} onSubmit={this.sendMessage}/>
       </Fragment>
     );
-  }
-}
+  };
+};
 export default App;

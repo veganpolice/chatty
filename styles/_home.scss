@@ -76,6 +76,17 @@ body {
   font-weight: 700;
 }
 
+.notification {
+  display: flex;
+  padding: 5px;
+}
+
+.notification-content {
+  flex: 2;
+  margin: 5px;
+  font-style: italic;
+}
+
 .navbar {
   background: tomato;
   border-bottom: 1px solid black;
