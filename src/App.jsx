@@ -11,7 +11,8 @@ class App extends Component {
       loading: true,
       messages: [],
       currentUser: {name: 'Aaron'},
-      webSocket: new WebSocket('ws://0.0.0.0:3002')
+      webSocket: new WebSocket('ws://0.0.0.0:3002'),
+      usersOnline: 0
     }
     this.sendMessage = this.sendMessage.bind(this);
   }
@@ -49,15 +50,21 @@ class App extends Component {
     
     this.state.webSocket.onmessage = (event) => {
       const inMsg = JSON.parse(event.data)
+      if (inMsg.usersOnline) {
+        this.setState({usersOnline: inMsg.usersOnline})
+        console.log(inMsg.usersOnline)
+      }
+      if (inMsg.content) {
       const messageArray = this.state.messages.concat(inMsg)
       this.setState({messages: messageArray})
+      }
     }
   }
 
   render() {
     return (
       <Fragment>
-        <Nav />
+        <Nav usersOnline={this.state.usersOnline}/>
         <MessageList messages={this.state.messages}/>
         <ChatBar currentUser={this.state.currentUser} onSubmit={this.sendMessage}/>
       </Fragment>
