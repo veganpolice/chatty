@@ -4,7 +4,7 @@ function Message(props) {
     if (props.data.type === 'postMessage') {
         return (
             <div className="message">
-            <span className="message-username">{props.data.username}</span>
+            <span className="message-username" style={{color: props.data.color}}>{props.data.username}</span>
             <span className="message-content">{props.data.content}</span>
             </div>
         )

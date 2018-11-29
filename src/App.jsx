@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       loading: true,
       messages: [],
-      currentUser: {name: 'Aaron'},
+      currentUser: {name: 'Aaron', color: '', id: ''},
       webSocket: new WebSocket('ws://0.0.0.0:3002'),
       usersOnline: 0
     }
@@ -29,14 +29,15 @@ class App extends Component {
         const content = `${oldUser} has changed their name to ${newUser}`
         const newNotification = {type, content}
         socket.send(JSON.stringify(newNotification))
-        this.setState({currentUser: {name: newUser}})
+        this.setState({currentUser: {name: newUser, id: this.state.currentUser.id, color: this.state.currentUser.color}})
       }
 
       if (content) {
         const type = 'postMessage';
         const id = this.state.messages.length + 1;
         const username = newUser || oldUser;
-        const newMessage = {type, id, username, content}
+        const color = this.state.currentUser.color;
+        const newMessage = {type, id, username, content, color};
         socket.send(JSON.stringify(newMessage));
         event.target.elements['text'].value = '';
       }
@@ -50,9 +51,19 @@ class App extends Component {
     
     this.state.webSocket.onmessage = (event) => {
       const inMsg = JSON.parse(event.data)
+      console.log(inMsg)
+
+      if (inMsg.user) {
+        this.setState({currentUser: {
+          name: this.state.currentUser.name,
+          id: inMsg.user.id,
+          color: inMsg.user.color
+        }})
+      }
+
       if (inMsg.usersOnline) {
         this.setState({usersOnline: inMsg.usersOnline})
-        console.log(inMsg.usersOnline)
+        //console.log(inMsg.usersOnline)
       }
       if (inMsg.content) {
       const messageArray = this.state.messages.concat(inMsg)
