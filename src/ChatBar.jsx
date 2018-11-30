@@ -5,7 +5,7 @@ function ChatBar(props){
             <form onSubmit={props.onSubmit}>
                 <footer className="chatbar">
                     <input className="chatbar-username" placeholder={props.currentUser.name} name='username'></input>
-                    <input className="chatbar-message" placeholder="Type a message and hit ENTER" name='text'></input>
+                    <input className="chatbar-message" placeholder="Tell your neighbors what you really think" name='text'></input>
                     <button type="submit">test</button>
                 </footer>
             </form>

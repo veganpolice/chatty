@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 function Message(props) {
 
-    const {data} = props
+    const {content, color, username, type, imgs} = props.data
     
     function buildImgs(imgArray) {
         const renderArray = []
@@ -12,22 +12,21 @@ function Message(props) {
         return renderArray;
     }
 
-    switch(data.type) {
+    switch(type) {
         case 'message':
             return (
                 <div className="message">
-                <span className="message-username" style={{color: props.data.color}}>{props.data.username}</span>
-                <span className="message-content">{props.data.content}
-                {buildImgs(props.data.imgs)}
+                <span className="message-username" style={{color: color}}>{username}</span>
+                <span className="message-content">{content}
+                {buildImgs(imgs)}
                 </span>
                 </div>
             )
             break;
-
         case 'notification':
             return (
                 <div className="notification">
-                <span className="notification-content">{props.data.content}</span>
+                <span className="notification-content">{content}</span>
                 </div>
             )
             break;  

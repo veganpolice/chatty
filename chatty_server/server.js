@@ -25,7 +25,7 @@ wss.on('connection', (ws) => {
         type: 'notification',
         id: uuidv4(),
         usersOnline: wss.clients.size,
-        content: 'a new user has joined the chat'
+        content: 'a new resident has has entered the park'
       }))
     }
   });
@@ -34,8 +34,7 @@ wss.on('connection', (ws) => {
   ws.on('message', function incoming(data) {
     const message = JSON.parse(data)
     message.id = uuidv4();
-    //
-
+  
     function removeURL(string) {
       const messageArray = string.split(' ');
       const imageReg = new RegExp(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/ig)
@@ -83,7 +82,7 @@ wss.on('connection', (ws) => {
           type: 'notification',
           id: uuidv4(),
           usersOnline: wss.clients.size,
-          content: 'a user has left the chat'
+          content: 'a resident has left the park'
         }))
       }
     });

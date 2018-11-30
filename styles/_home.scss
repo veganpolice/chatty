@@ -14,7 +14,7 @@ body {
 }
 
 .chatbar {
-  background: tomato;
+  background: slategray;
   border-top: 1px solid black;
   bottom: 0;
   display: flex;
@@ -94,29 +94,37 @@ body {
 }
 
 .navbar {
-  background: tomato;
+  background-image: url(https://i.imgur.com/KLSy8W1.jpg);
+  background-repeat: no-repeat;
   border-bottom: 1px solid black;
-  height: 60px;
+  margin-left: -20vh;
+  height: 40vh;
+  vertical-align: 0%;
   left: 0;
   padding: 0 10px;
-  position: fixed;
+  position: sticky;
   right: 0;
   top: 0;
 }
 
 .navbar-brand {
+  margin-left: 20vh;
+  position: fixed;
   color: inherit;
   display: block;
   float: left;
   font-weight: 700;
   font-size: 28px;
-  height: 60px;
-  line-height: 60px;
+  line-height: 0px;
   padding: 0 10px;
   text-decoration: none;
 }
 
 .user-count {
+  margin-left: 20vh;
+  position: fixed;
+  //margin-left: 20px;
+  margin-top: 40px;
   padding: 8px;
-  float: right;
+  float: left;
 }

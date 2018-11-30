@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       loading: true,
       messages: [],
-      currentUser: {name: 'Aaron', color: '', id: ''},
+      currentUser: {name: 'Ricky', color: '', id: ''},
       webSocket: new WebSocket('ws://0.0.0.0:3002'),
       usersOnline: 0,
     }
@@ -81,7 +81,7 @@ class App extends Component {
     componentDidUpdate() {
       this.scrollRef.current.scrollIntoView({behavior: "instant", inline: "nearest"});
       }
-    
+
     render() {
     return (
       <Fragment>
