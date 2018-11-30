@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       loading: true,
       messages: [],
-      currentUser: {name: 'Ricky', color: '', id: ''},
+      currentUser: {name: 'a park resident', color: '', id: ''},
       webSocket: new WebSocket('ws://0.0.0.0:3002'),
       usersOnline: 0,
     }
