@@ -24,7 +24,7 @@ A user can submit image links and see them appear in the chat. Multiple links an
 
 #### Styles
 
-Chatty has be customized to for a Trailor Park Boys theme.
+Chatty has be customized for a Trailor Park Boys theme.
 
 ### Dependencies
 
